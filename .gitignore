@@ -1,0 +1,11 @@
+.ipynb_checkpoints/
+__pycache__/
+Final_Project.txt
+langchain_env
+school_file.json
+new_db/chroma.sqlite3
+.sqlite3
+.pdf
+new_db/
+.json
+Final_files/

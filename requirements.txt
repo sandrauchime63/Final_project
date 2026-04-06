@@ -1,0 +1,18 @@
+-rm -rf langchain_env
+-python3.10 -m venv langchain_env
+-source langchain_env/bin/activate
+-pip install \
+"numpy<2" \
+torch==2.2.2 \
+transformers==4.37.2 \
+tokenizers==0.15.2 \
+huggingface_hub==0.20.3 \
+langchain==0.1.0 \
+langchain-community==0.0.20 \
+pydantic==1.10.13 \
+PyPDF2==3.0.1 \
+requests
+
+-pip install ipykernel
+python -m ipykernel install --user --name=langchain_env
+-jupyter notebook
