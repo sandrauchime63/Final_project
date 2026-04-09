@@ -5,7 +5,8 @@ Conversational AI chatbot
 
 
 ## How To Run
-- requirements.txt
+- source langchain_env/bin/activate
+- pip install -r requirements.txt
 
 
 # Overview
