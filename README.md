@@ -1,11 +1,12 @@
-# Final_project
+# Final_project	
+AI FAQ Assistant for Schools	
+Develop an AI assistant that answers frequently asked questions about admissions, fees, and school policies.
+Conversational AI chatbot
 
-My final project 
 
 ## How To Run
-- 
-- 
-- 
+- requirements.txt
+
 
 # Overview
 
