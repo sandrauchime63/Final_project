@@ -1,0 +1,2 @@
+[tool.fastapi]
+entrypoint = "FINAL_PROJECT.python_files.main:app"
