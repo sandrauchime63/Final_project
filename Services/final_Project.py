@@ -1,25 +1,22 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[ ]:
-
-
 from langchain_openai import ChatOpenAI 
+from langchain.agents import initialize_agent, AgentType
+from langchain.memory import ConversationBufferMemory
+from langchain_community.document_loaders import JSONLoader
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_community.vectorstores import Chroma
+from langchain.embeddings import HuggingFaceEmbeddings
+from langchain.tools import tool
+import requests
+from bs4 import BeautifulSoup
+
+
 
 llm = ChatOpenAI(
     model="gpt-4o-mini",
-    api_key="",
+    api_key="***", # type: ignore
     temperature=0,
 
 )
-
-
-
-# In[ ]:
-
-
-## time to prepare my file.
-from langchain_community.document_loaders import JSONLoader
 
 loader = JSONLoader(
     file_path="Final_files/school_file.json",
@@ -27,18 +24,11 @@ loader = JSONLoader(
 )
 documents = loader.load()
 
-## now we chunk
-from langchain.text_splitter import RecursiveCharacterTextSplitter
 
 text_splitter=RecursiveCharacterTextSplitter(chunk_size=1000,chunk_overlap=200,add_start_index=True)
 allsplit=text_splitter.split_documents(documents)
 
 
-# In[ ]:
-
-
-from langchain_community.vectorstores import Chroma
-from langchain.embeddings import HuggingFaceEmbeddings
 
 
 embed = HuggingFaceEmbeddings(
@@ -55,13 +45,6 @@ vectorstore = Chroma.from_documents(
 vectorstore.persist()
 
 
-
-# In[ ]:
-
-
-from langchain.tools import tool
-import requests
-from bs4 import BeautifulSoup
 
 url="https://unilag.edu.ng/"
 
@@ -84,15 +67,10 @@ def chooser(user_input):
 
 
 
-# In[ ]:
-
-
-from langchain.agents import initialize_agent, AgentType
-from langchain.memory import ConversationBufferMemory
-
 tools=[search_school_website, chooser]
-agent = initialize_agent(
-    tools,
+def agent_executor():
+    agent = initialize_agent(
+    tools, # type: ignore
     llm,
     agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
     handle_parsing_errors=True,
@@ -100,11 +78,10 @@ agent = initialize_agent(
     max_iteration=3,
     memory = ConversationBufferMemory()
 )
+    return agent
 
-agent.run("")
 
 
-# In[ ]:
 
 
 
